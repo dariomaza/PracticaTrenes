@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TrainType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrainTypeController extends Controller
 {
@@ -11,7 +13,10 @@ class TrainTypeController extends Controller
      */
     public function index()
     {
-        //
+        $trainTypes = TrainType::all();
+        return view('trainTypes.index',[
+            'trainTypes'=>$trainTypes
+        ]);
     }
 
     /**
@@ -19,7 +24,7 @@ class TrainTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('trainTypes.create');
     }
 
     /**
@@ -27,7 +32,12 @@ class TrainTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $trainType = new TrainType();
+
+        $trainType->type = $request->input("type");
+        $trainType->save();
+
+        return redirect('/trainTypes');
     }
 
     /**
@@ -35,7 +45,11 @@ class TrainTypeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $trainType = TrainType::find($id);
+
+        return view('trainTypes.show',[
+            'trainType'=>$trainType
+        ]);
     }
 
     /**
@@ -43,7 +57,11 @@ class TrainTypeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $trainType = TrainType::find($id);
+
+        return view('trainTypes.edit',[
+            'trainType'=>$trainType
+        ]);
     }
 
     /**
@@ -51,14 +69,23 @@ class TrainTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $trainType = TrainType::find($id);
+
+        $trainType->type = $request->input("type");
+        $trainType->save();
+
+        return redirect('/trainTypes');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+    {   
+        DB::table('tickets')->where('train_id','=',$id)->delete();
+        DB::table('trains')->where('train_type_id','=',$id)->delete();
+        DB::table('train_types')->where("id","=",$id)->delete();
+
+        return redirect('/trainTypes');
     }
 }
