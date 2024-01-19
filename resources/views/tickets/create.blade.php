@@ -30,7 +30,7 @@
             </select>
             <input type="submit" value="Crear ticket" class="btn btn-primary mt-2">
         </form>
-        <a href="{{ route('trains.index')}}" class="btn btn-secondary mt-2">Volver a inicio</a>
+        <a href="{{ route('tickets.index')}}" class="btn btn-secondary mt-2">Volver a inicio</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

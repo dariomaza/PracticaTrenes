@@ -46,7 +46,7 @@ class TrainController extends Controller
 
         $train->save();
 
-        return redirect('trains.index');
+        return redirect('/trains');
     }
 
     /**
